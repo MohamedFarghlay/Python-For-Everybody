@@ -1,6 +1,7 @@
 import urllib.request, urllib.parse, urllib.error
 from bs4 import BeautifulSoup as bs
 import ssl
+import requests
 
 def openURL(url):
     # Ignore SSL certificate errors 
@@ -18,7 +19,12 @@ def htmlParser(html_content):
 url = "http://py4e-data.dr-chuck.net/known_by_Allice.html"
 html = openURL(url)
 soup = htmlParser(html)
-
+response = requests.request(
+    'GET',
+    url
+)
+hhtml = openURL(response)
+soup = htmlParser(hhtml)
 tags = soup('a')
 pos = 17
 n_repeat = 8
